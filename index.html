@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gio Portal | Dinda Savila</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar" id="mainNav">
+    <div class="nav-container">
+        <h2 class="logo">GIO.<span>TV</span></h2>
+        <div class="nav-links">
+            <a href="#" onclick="kembaliHome()">Home</a>
+            <a href="#main-content">Koleksi</a>
+            <a href="#creator">Creator</a>
+        </div>
+    </div>
+</nav>
+
+<section id="welcome-screen" class="hero">
+    <div class="hero-content">
+        <h1 class="fade-in">Portal<br>Kenalan Gio</h1>
+        <p class="fade-in delay-1">Halo! Klik tombol di bawah untuk mulai eksplorasi koleksi konten Gio.</p>
+        
+        <div class="sosmed-container fade-in delay-2">
+            <a href="https://tr.ee/hEHOY7_EAG" target="_blank" class="sos-icon"><i class="fab fa-youtube"></i></a>
+            <a href="https://tr.ee/GgcGCzXS2H" target="_blank" class="sos-icon"><i class="fab fa-tiktok"></i></a>
+            <a href="https://tr.ee/dQ4CQjFmbP" target="_blank" class="sos-icon"><i class="fab fa-x-twitter"></i></a>
+            <a href="#" class="sos-icon"><i class="fas fa-link"></i></a>
+        </div>
+
+        <button class="main-btn fade-in delay-3" onclick="mulaiKenalan()">Ayo Kenalan!</button>
+    </div>
+</section>
+
+<section id="main-content">
+    <div class="section-header">
+        <h2>Koleksi Galeri</h2>
+        <div class="tab-buttons">
+            <button class="tab-btn active" id="btn-normal" onclick="bukaTab('normal')">Gio Normal</button>
+            <button class="tab-btn" id="btn-anomali" onclick="bukaTab('anomali')">Gio Anomali</button>
+            <button class="tab-btn" id="btn-creator" onclick="bukaTab('creator')">Data Diri</button>
+        </div>
+    </div>
+
+    <div id="normal" class="tab-content active">
+        <div class="gallery-grid">
+            <img src="img/normal.jpg.png"> 
+            <img src="img/normal1.jpg.png">
+            <img src="img/normal2.jpg.jpeg"> 
+            <img src="img/normal3.jpg.jpeg">
+            <img src="img/normal4.jpg.jpeg"> 
+            <img src="img/normal5.jpg.png">
+            <img src="img/capek.jpg.png">
+        </div>
+    </div>
+
+    <div id="anomali" class="tab-content">
+        <div class="gallery-grid">
+            <img src="img/anomali_1.jpg.png"> 
+            <img src="img/Anomali_angrybird.jpg.jpeg">
+            <img src="img/Anomali_babi.jpg.jpeg"> 
+            <img src="img/Anomali_botak.jpg.png">
+            <img src="img/Anomali_gitar.jpg.jpeg"> 
+            <img src="img/Anomali_kipas.jpg.jpeg">
+            <img src="img/Anomali_kopi.jpg.jpeg">
+            <img src="img/Anomali_Kura2.jpg.jpeg">
+            <img src="img/Anomali_Kutukan.jpg.jpeg">
+            <img src="img/Anomali_laba2.jpg.jpeg">
+            <img src="img/Anomali_Pari.jpg.jpeg">
+            <img src="img/Anomali_silver.jpg.jpeg">
+            <img src="img/Anomali_Setan.jpg.jpeg">
+            <img src="img/Anomali_skibidi.jpg.jpeg">
+
+
+        </div>
+    </div>
+
+    <div id="creator" class="tab-content">
+        <div class="creator-card">
+            <img src="img/Adinda.jpg.jpeg" class="profile-img">
+            <h3>Wa ode Adinda Savila</h3>
+            <p>NIM: 22415049 | Sistem dan Teknologi Informasi (Adek Gio)</p>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Efek Transparansi Navbar saat Scroll
+    window.onscroll = function() {
+        const nav = document.getElementById('mainNav');
+        if (window.scrollY > 50) {
+            nav.classList.add('nav-scrolled');
+        } else {
+            nav.classList.remove('nav-scrolled');
+        }
+    };
+
+    function mulaiKenalan() {
+        // Fungsi Scroll Halus ke Bawah
+        document.getElementById('main-content').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function kembaliHome() {
+        // Fungsi Kembali ke Atas
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function bukaTab(nama) {
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(nama).classList.add('active');
+        document.getElementById('btn-' + nama).classList.add('active');
+    }
+</script>
+</body>
+</html>
