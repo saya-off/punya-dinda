@@ -29,24 +29,13 @@
         <h1 class="fade-in">Portal<br>Kenalan Gio</h1>
         <p>Halo! Klik tombol di bawah untuk mulai eksplorasi koleksi konten Gio.</p>
         
-<div class="sosmed-container fade-in delay-2">
-    <!-- YouTube: Langsung buka aplikasi YouTube -->
-    <a href="intent://www.youtube.com/@giogevagar#Intent;package=com.google.android.youtube;scheme=https;end" class="sos-icon"><i class="fab fa-youtube"></i></a>
-    
-    <!-- Instagram: Langsung buka aplikasi Instagram -->
-    <a href="instagram://user?username=giogvagar" class="sos-icon"><i class="fab fa-instagram"></i></a>
-    
-    <!-- X / Twitter: Langsung buka aplikasi X -->
-    <a href="twitter://user?screen_name=gio_gevagar12" class="sos-icon"><i class="fab fa-x-twitter"></i></a>
-    
-    <!-- TikTok: Langsung buka profil di aplikasi TikTok -->
-    <a href="snssdk1128://user/profile/giogevagar" class="sos-icon"><i class="fab fa-tiktok"></i></a>
-    
-    <!-- Discord: Langsung buka aplikasi Discord -->
-    <a href="https://discord.gg/cUwbxE87Qb" class="sos-icon"><i class="fab fa-discord"></i></a>
-    
-    <!-- Trakteer: Karena ga ada aplikasi khusus, pakai link biasa tapi hapus target_blank -->
-    <a href="https://trakteer.id/gio_gevagar" class="sos-icon"><i class="fas fa-coffee"></i></a>
+    <div class="sosmed-container fade-in delay-2">
+            <a href="https://youtube.com/@giogevagar" target="_blank" class="sos-icon"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.instagram.com/giogvagar" target="_blank" class="sos-icon"><i class="fab fa-instagram"></i></a>
+            <a href="https://x.com/gio_gevagar12" target="_blank" class="sos-icon"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://www.tiktok.com/@giogevagar" target="_blank" class="sos-icon"><i class="fab fa-tiktok"></i></a>
+            <a href="https://discord.gg/cUwbxE87Qb" class="sos-icon"><i class="fab fa-discord"></i></a>
+            <a href="https://trakteer.id/gio_gevagar" class="sos-icon"><i class="fas fa-coffee"></i></a>
 </div>
 
         <button class="main-btn" onclick="mulaiKenalan()">Ayo Kenalan!</button>
@@ -131,33 +120,40 @@
     </div>
 </section>
 
-<div class="playlist-section" 
-style="text-align: center; 
-margin: 40px auto; 
-background: #1a1a1a; 
-padding: 25px; 
-border-radius: 15px; 
-width: 90%;">
-    <p style="color: #bb86fc; 
-    font-size: 14px; 
-    margin-bottom: 20px;">🎵 GIO GEVAGAR PLAYLIST</p>
+<div class="playlist-section">
+    <p class="playlist-title">🎵 GIO GEVAGAR PLAYLIST</p>
     
-    <button onclick="playSong('re7kJ7HC9Oc', 'Everything Goes On')" 
-    style="background: #5d4037; 
-    color: white; border: none; 
-    padding: 12px 25px; 
-    border-radius: 10px; cursor: pointer; 
-    width: 220px; 
-    font-weight: bold;">
-        Everything Goes On 🎶
-    </button>
-
-    <div style="margin-top: 15px;">
-        <button onclick="stopMusic()" style="background: #cc0000; color: white; border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer; font-size: 12px; opacity: 0.9;">
-            Stop Music ⏸️
-        </button>
+    <div class="spotify-card">
+        <div class="player-cover">
+            <img src="img/gio1.png" alt="Cover Album" id="current-cover">
+        </div>
+        
+        <div class="player-details">
+            <div class="track-info">
+                <h3 id="track-title">Everything Goes On</h3>
+                <p id="track-artist">Gio Gevagar</p>
+            </div>
+            
+            <div class="progress-container">
+                <span class="time-text" id="current-time">0:00</span>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progress-fill"></div>
+                </div>
+                <span class="time-text">3:32</span>
+            </div>
+            
+            <div class="player-controls">
+                <button class="control-btn play-btn" onclick="playSong('re7kJ7HC9Oc', 'Everything Goes On')">
+                    <i class="fas fa-play"></i> Play
+                </button>
+                <button class="control-btn stop-btn" onclick="stopMusic()">
+                    <i class="fas fa-pause"></i> Stop
+                </button>
+            </div>
+        </div>
     </div>
-    <p id="status" style="color: #555; font-size: 12px; margin-top: 15px;">Status: Off</p>
+    
+    <p id="status">Status: Off</p>
     
     <div style="display:none;">
         <iframe id="youtube-player" width="1" height="1" src="" frameborder="0" allow="autoplay"></iframe>
@@ -234,19 +230,65 @@ function closeCreatorModal() {
     if(modalCreator) modalCreator.style.display = "none";
 }
 
+// PASANG KODE BARU INI:
+let progressInterval;
+
 function playSong(videoId, title) {
     if(player) {
+        // Memutar lagu lewat iframe youtube tersembunyi
         player.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
-        if(statusText) statusText.innerHTML = "Status: Memutar " + title;
-        if(statusText) statusText.style.color = "#bb86fc";
+        
+        if(statusText) {
+            statusText.innerHTML = "Status: Memutar " + title;
+            statusText.style.color = "#bb86fc";
+        }
+        
+        // Reset interval jika sebelumnya ada lagu yang sedang berjalan
+        clearInterval(progressInterval);
+        
+        const progressFill = document.getElementById('progress-fill');
+        const currentTimeText = document.getElementById('current-time');
+        let width = 0;
+        let seconds = 0;
+        
+        // Menjalankan simulasi progress bar & timer setiap 1 detik
+        progressInterval = setInterval(() => {
+            if (width >= 100) {
+                clearInterval(progressInterval);
+            } else {
+                // Angka 0.5 ini estimasi kecepatan bar berjalan, bisa disesuaikan
+                width += 0.5; 
+                seconds += 1;
+                
+                // Format hitungan detik menjadi Menit:Detik (0:00)
+                let mins = Math.floor(seconds / 60);
+                let secs = seconds % 60;
+                if (secs < 10) secs = '0' + secs;
+                
+                // Update tampilan visual progress bar Spotify
+                if(progressFill) progressFill.style.width = width + '%';
+                if(currentTimeText) currentTimeText.innerHTML = mins + ':' + secs;
+            }
+        }, 1000);
     }
 }
 
 function stopMusic() {
     if(player) {
+        // Menghentikan musik
         player.src = "";
-        if(statusText) statusText.innerHTML = "Status: Off";
-        if(statusText) statusText.style.color = "#555";
+        
+        if(statusText) {
+            statusText.innerHTML = "Status: Off";
+            statusText.style.color = "#a7a7a7";
+        }
+        
+        // Matikan interval dan reset progress bar ke posisi awal (0)
+        clearInterval(progressInterval);
+        const progressFill = document.getElementById('progress-fill');
+        const currentTimeText = document.getElementById('current-time');
+        if(progressFill) progressFill.style.width = '0%';
+        if(currentTimeText) currentTimeText.innerHTML = '0:00';
     }
 }
 
