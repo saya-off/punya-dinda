@@ -634,6 +634,15 @@ nav.navbar-global.scrolled {
     column-gap: 20px;
 }
 
+@media (max-width: 1024px) {
+    .gallery-grid { column-count: 3; }
+}
+
+@media (max-width: 700px) {
+    .gallery-grid { column-count: 2; column-gap: 12px; }
+    .gallery-grid img { margin-bottom: 12px; }
+}
+
 .gallery-grid img {
     width: 100%;
     margin-bottom: 20px;
@@ -647,6 +656,12 @@ nav.navbar-global.scrolled {
     transform: scale(1.05) translateY(-5px);
     border-color: var(--primary-color);
     box-shadow: 0 10px 25px rgba(187, 134, 252, 0.4);
+}
+
+@media (max-width: 480px) {
+    .gallery-title { font-size: 1.7rem; }
+    .tab-buttons { gap: 10px; margin-bottom: 34px; }
+    .tab-btn { padding: 8px 16px; font-size: 0.95rem; }
 }
 
 .modal {
@@ -898,6 +913,14 @@ nav.navbar-global.scrolled {
     .sos-icon { font-size: 1.5rem !important; }
 }
 
+@media (max-width: 420px) {
+    .navbar-global { padding: 8px 3%; }
+    .nav-logo-img { width: 26px !important; }
+    .logo-text { font-size: 13px !important; }
+    .nav-links { gap: 8px !important; }
+    .nav-links a { font-size: 10.5px !important; }
+}
+
 marquee {
     font-size: 12px;
 }
@@ -1099,6 +1122,7 @@ nav.scrolled {
 
 .player-details {
     flex-grow: 1;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -1110,6 +1134,9 @@ nav.scrolled {
     font-weight: 700;
     margin: 0;
     font-family: sans-serif;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .track-info p {
@@ -1117,6 +1144,9 @@ nav.scrolled {
     font-size: 14px;
     margin: 4px 0 0 0;
     font-family: sans-serif;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .progress-container {
@@ -1246,6 +1276,7 @@ nav.scrolled {
 
 .music-item-info {
     flex-grow: 1;
+    min-width: 0;
 }
 
 .music-item-title {
@@ -1253,12 +1284,18 @@ nav.scrolled {
     font-size: 15px;
     font-weight: 500;
     margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .music-item-artist {
     color: #b3b3b3;
     font-size: 13px;
     margin: 4px 0 0 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .music-item-icon {
@@ -1412,6 +1449,17 @@ nav.scrolled {
     .app-title { font-size: 1.15rem; }
     .gevagart-grid { column-count: 2; column-gap: 12px; }
     .gevagart-item { margin-bottom: 12px; }
+}
+
+@media (max-width: 420px) {
+    .modal-content { padding: 32px 20px; }
+    .gio-fact-list { grid-template-columns: 1fr; }
+    .hero-copy h1 { font-size: 1.7rem; }
+    .hero-sidebar { padding: 10px 12px; }
+    .sidebar-icons { gap: 10px; }
+    .hero-sidebar .sos-icon { font-size: 1rem; }
+    .app-back { padding: 6px 12px; font-size: 0.85rem; }
+    .app-title { font-size: 1rem; }
 }
 
 @media (max-width: 480px) {
