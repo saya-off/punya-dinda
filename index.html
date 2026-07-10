@@ -25,6 +25,7 @@
 </nav>
 
 <div class="hero-wrap" id="top">
+    <div class="hero-particles" id="heroParticles"></div>
     <div class="hero-card">
 
         <div class="hero-sidebar">
@@ -194,9 +195,11 @@
         <span class="close-modal" onclick="closeCreatorModal()"><i class="fas fa-xmark"></i></span>
 
         <div class="creator-carousel">
+            <span class="creator-carousel-nav prev" onclick="creatorPrev()"><i class="fas fa-chevron-left"></i></span>
             <img src="img/savil.webp" class="creator-slide active" alt="Foto Dinda">
             <img src="img/din.jpg" class="creator-slide" alt="Foto Dinda">
             <img src="img/adhi.webp" class="creator-slide" alt="Foto Dinda">
+            <span class="creator-carousel-nav next" onclick="creatorNext()"><i class="fas fa-chevron-right"></i></span>
             <div class="creator-carousel-dots">
                 <span class="dot active" onclick="creatorSlide(0)"></span>
                 <span class="dot" onclick="creatorSlide(1)"></span>
@@ -205,6 +208,7 @@
         </div>
 
         <h3>Dinda</h3>
+        <span class="creator-role">Kreator &amp; Developer Website Ini</span>
 
         <div class="gio-fact-list">
             <div class="gio-fact"><span>Tanggal Lahir</span><strong>14 Agustus</strong></div>
@@ -321,15 +325,15 @@
 
                 <div class="progress-container">
                     <span class="time-text" id="current-time">0:00</span>
-                    <div class="progress-bar-bg">
+                    <div class="progress-bar-bg" id="progress-bar-bg" onclick="seekTo(event)">
                         <div class="progress-bar-fill" id="progress-fill"></div>
                     </div>
-                    <span class="time-text">3:32</span>
+                    <span class="time-text" id="total-time">0:00</span>
                 </div>
 
                 <div class="player-controls">
-                    <button class="control-btn stop-btn" onclick="stopMusic()">
-                        <i class="fas fa-pause"></i> Stop
+                    <button class="control-btn playpause-btn" id="playPauseBtn" onclick="togglePlayPause()">
+                        <i class="fas fa-play"></i> Putar
                     </button>
                 </div>
             </div>
@@ -344,7 +348,7 @@
                     <p class="music-item-title">Everything Goes On</p>
                     <p class="music-item-artist">Gio Gevagar</p>
                 </div>
-                <i class="fas fa-play music-item-icon"></i>
+                <span class="music-item-icon-slot"><i class="fas fa-play music-item-icon"></i></span>
             </div>
 
             <div class="music-item" onclick="playSong('aGEYSZrbeAo','NPD - Sempurnanya Aku','Gio Gevagar', this)">
@@ -353,7 +357,7 @@
                     <p class="music-item-title">NPD - Sempurnanya Aku </p>
                     <p class="music-item-artist">Gio Gevagar</p>
                 </div>
-                <i class="fas fa-play music-item-icon"></i>
+                <span class="music-item-icon-slot"><i class="fas fa-play music-item-icon"></i></span>
             </div>
 
 
@@ -361,8 +365,36 @@
     </div>
 
     <div style="display:none;">
-        <iframe id="youtube-player" width="1" height="1" src="" style="border:0;" allow="autoplay"></iframe>
+        <div id="youtube-player"></div>
     </div>
+</div>
+
+<div class="goblin-mascot" id="goblinMascot" title="Goblin">
+    <svg viewBox="0 0 150 90" width="90" height="54" xmlns="http://www.w3.org/2000/svg" class="goblin-svg">
+        <ellipse class="goblin-leg goblin-leg-bl" cx="35" cy="74" rx="11" ry="7" fill="#3f9d63"></ellipse>
+        <ellipse class="goblin-leg goblin-leg-br" cx="105" cy="74" rx="11" ry="7" fill="#3f9d63"></ellipse>
+        <ellipse class="goblin-leg goblin-leg-fl" cx="28" cy="60" rx="10" ry="6" fill="#5fc182"></ellipse>
+        <ellipse class="goblin-leg goblin-leg-fr" cx="112" cy="60" rx="10" ry="6" fill="#5fc182"></ellipse>
+        <path d="M18 58 Q6 58 12 68 Q18 72 24 66 Z" fill="#5fc182"></path>
+        <g class="goblin-shell-group">
+            <ellipse cx="72" cy="46" rx="48" ry="29" fill="#57c785"></ellipse>
+            <path d="M28 46 Q72 18 116 46 Q95 64 72 67 Q49 64 28 46 Z" fill="#2f9d5e" opacity="0.55"></path>
+            <path d="M50 36 L60 52 M72 30 L72 58 M94 36 L84 52" stroke="#1f6b41" stroke-width="3" stroke-linecap="round" fill="none"></path>
+            <ellipse cx="126" cy="42" rx="15" ry="13" fill="#5fc182"></ellipse>
+            <circle cx="134" cy="38" r="2.4" fill="#1a1a1a"></circle>
+        </g>
+    </svg>
+</div>
+
+<div id="miniPlayer" class="mini-player" onclick="openMusicApp()">
+    <img id="mini-cover" src="img/gio1.png" alt="Cover">
+    <div class="mini-info">
+        <p id="mini-title">-</p>
+        <p id="mini-artist">-</p>
+    </div>
+    <button class="mini-btn" id="miniPlayPauseBtn" onclick="event.stopPropagation(); togglePlayPause();">
+        <i class="fas fa-play"></i>
+    </button>
 </div>
 
 <script src="script.js"></script>
